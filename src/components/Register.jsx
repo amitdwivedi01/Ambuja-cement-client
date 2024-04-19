@@ -9,7 +9,7 @@ const Register = ({host}) => {
   const [formData, setFormData] = useState({
     name: "",
     region: "",
-    email: "",
+    number: "",
   });
   const [loading, setLoading] = useState(false); // Add loading state
   const [error, setError] = useState(null); // Add error state
@@ -77,11 +77,11 @@ const Register = ({host}) => {
           style={{ outline: "none" }} // Remove outline when clicked
         />
         <input
-          type="text"
-          name="email"
-          value={formData.email}
+          type="Number"
+          name="number"
+          value={formData.number}
           onChange={handleChange}
-          placeholder="Email"
+          placeholder="Number"
           className="w-full mb-4 p-2 text-4xl rounded-xl border-4 border-[#D2A561] bg-black bg-opacity-50 text-[#fee590] placeholder-[#887842] text-center"
           style={{ outline: "none" }} // Remove outline when clicked
         />

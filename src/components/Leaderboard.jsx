@@ -37,7 +37,7 @@ const Leaderboard = ({host}) => {
     const formattedData = users.map((user) => ({
       Name: user.name,
       Region: user.region,
-      Email: user.email,
+      Number: user.number,
       Snap_Score: user.snapScore,
       Quiz_Score: user.quizScore.score,
       Time_Taken_seconds: user.quizScore.timeTaken,
@@ -89,7 +89,7 @@ const Leaderboard = ({host}) => {
               <tr>
                 <th className="px-4 py-2">Name</th>
                 <th className="px-4 py-2">Region</th>
-                <th className="px-4 py-2">Email</th>
+                <th className="px-4 py-2">Number</th>
                 {leaderboardType === "snap-score" && (
                   <th className="px-4 py-2">Snap Score</th>
                 )}
@@ -103,7 +103,7 @@ const Leaderboard = ({host}) => {
                 <tr key={user._id}>
                   <td className="border px-4 py-2">{user.name}</td>
                   <td className="border px-4 py-2">{user.region}</td>
-                  <td className="border px-4 py-2">{user.email}</td>
+                  <td className="border px-4 py-2">{user.number}</td>
                   {leaderboardType === "snap-score" && (
                     <td className="border px-4 py-2">{user.snapScore}</td>
                   )}
