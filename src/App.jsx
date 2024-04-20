@@ -10,8 +10,8 @@ import UploadImage from "./components/UploadImage";
 import Leaderboard from "./components/Leaderboard";
 
 const App = () => {
-  const host = "https://ultratechbackend.shobizgames.com"
-  // const host = "http://localhost:3000"
+  // const host = "https://ultratechbackend.shobizgames.com"
+  const host = "http://localhost:3000"
   return (
     <Router>
       <Routes>

@@ -42,6 +42,7 @@ const Quiz = ({ host }) => {
   const [showCorrectModal, setShowCorrectModal] = useState(false); // State for displaying correct answer modal
   const [selectedOption, setSelectedOption] = useState(null); // State to track selected option
   const [selectedCorrectOption, setSelectedCorrectOption] = useState(null); // State to track correct option when incorrect answer is selected
+  const [userComment, setUserComment] = useState(""); // State to store user's comment
 
   const timeLeftRef = useRef(timeLeft); // Ref to hold the latest timeLeft value
   const timer = useRef(null); // Ref to hold the timer interval
@@ -60,7 +61,7 @@ const Quiz = ({ host }) => {
     }, 1000);
 
     return () => clearInterval(timer.current);
-  }, [currentQuestion, showCorrectModal]); // Added showCorrectModal to the dependency array to pause timer when incorrect modal pops up
+  },[]); // Added showCorrectModal to the dependency array to pause timer when incorrect modal pops up
 
   const handleAnswer = (isCorrect, optionText) => {
     setSelectedOption(optionText);
@@ -72,8 +73,8 @@ const Quiz = ({ host }) => {
           setCurrentQuestion(currentQuestion + 1);
           setSelectedOption(null);
         } else {
-          setShowGameOverModal(true);
           clearInterval(timer.current); // Show game over modal when all questions are answered
+          setShowGameOverModal(true);
         }
       }, 2000); // Move to next question after 2 seconds
     } else {
@@ -88,15 +89,15 @@ const Quiz = ({ host }) => {
 
   const handleSubmit = async () => {
     try {
-      clearInterval(timer.current); // Stop the timer
       const userId = localStorage.getItem("userId");
 
       // Submit user data to the backend
       const userData = {
         score,
         timeTaken: 60 - timeLeftRef.current, // Calculate time taken in seconds
+        userComment: userComment, // Include user's comment
       };
-      console.log("score :", score);
+
       const response = await axios.put(
         `${host}/api/users/quizscore/${userId}`,
         userData
@@ -131,12 +132,21 @@ const Quiz = ({ host }) => {
               {timeLeftRef.current % 60} seconds
             </p>
             <p>Score: {score}</p>
-            <button
-              onClick={handleSubmit}
-              className="mt-6 px-8 py-3 bg-[#fee590] text-black font-semibold rounded-lg shadow-md hover:bg-[#fdda6a]"
-            >
-              Submit
-            </button>
+            <h1>Please provide us the feedback!</h1>
+            <div>
+              <textarea
+                value={userComment}
+                onChange={(e) => setUserComment(e.target.value)}
+                placeholder="Enter your comment here..."
+                className="mt-4 px-4 py-2 w-full border border-gray-300 rounded-md"
+              ></textarea>
+              <button
+                onClick={handleSubmit}
+                className="mt-4 px-8 py-3 bg-[#fee590] text-black font-semibold rounded-lg shadow-md hover:bg-[#fdda6a]"
+              >
+                Submit
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -190,19 +200,13 @@ const Quiz = ({ host }) => {
             <button
               key={index}
               onClick={() => handleAnswer(option.isCorrect, option.text)}
-              className={`w-full col-span-1 px-6 py-3 bg-${
+              className={`w-full col-span-1 px-6 py-3 ${
                 selectedOption === option.text
                   ? option.isCorrect
-                    ? "#008000"
-                    : "#FF0000"
-                  : "#fee590"
-              } text-${
-                selectedOption === option.text
-                  ? option.isCorrect
-                    ? "white"
-                    : "white"
-                  : "#fdda6a"
-              } bg-[#fee590] font-semibold rounded-lg shadow-md hover:bg-[#fdda6a]`}
+                    ? "bg-green-500 text-white"
+                    : "bg-red-500 text-white"
+                  : "bg-[#fee590] text-black"
+              } font-semibold rounded-lg shadow-md`}
               disabled={selectedOption !== null}
             >
               {option.text}
