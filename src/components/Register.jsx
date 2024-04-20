@@ -66,7 +66,7 @@ const Register = ({host}) => {
       className={`flex flex-col items-center justify-center h-screen bg-cover w-screen `}
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      <form onSubmit={handleSubmit} className="p-6 rounded-md w-[400px] ">
+      <form onSubmit={handleSubmit} className="p-6 rounded-md w-[400px] flex flex-col justify-center items-center">
         <input
           type="text"
           name="name"
@@ -100,12 +100,9 @@ const Register = ({host}) => {
           disabled={loading} // Disable button while loading
         >
           {loading ? ( // Show loading spinner if loading state is true
-            <svg
-              className="animate-spin h-6 w-6 mr-3 text-white"
-              viewBox="0 0 24 24"
-            >
-             
-            </svg>
+           <button type="button" className="bg-[#D2A561] text-black px-5 py-2 rounded-md text-xl font-semibold" disabled>
+           Processing...
+         </button>
           ) : (
             <img src={submitButton} alt="Submit" className="w-100 h-auto" />
           )}

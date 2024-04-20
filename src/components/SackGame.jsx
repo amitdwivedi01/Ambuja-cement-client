@@ -3,20 +3,23 @@ import backgroundImage from '../assets/desktopbg.jpg';
 import bagImage from '../assets/cementbag.png';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-const userId = localStorage.getItem("userId");
+
 
 const SackGame = ({host}) => {
   const [bags, setBags] = useState([
     { id: 1, position: 0 },
     { id: 2, position: -300 },
-    { id: 3, position: -600 }
+    { id: 3, position: -600 },
+    // {id:4, position: -900},
+    // {id:5, position: -800},
+    // {id:6, position: -1500},
   ]);
   const [boxPosition, setBoxPosition] = useState(0);
   const [boxWidth, setBoxWidth] = useState(200);
   const [score, setScore] = useState(0);
   const [time, setTime] = useState(30);
   const [gameOver, setGameOver] = useState(false);
-  const [bagSpeed, setBagSpeed] = useState(15);
+  const [bagSpeed, setBagSpeed] = useState(35);
   const [bagMoving, setBagMoving] = useState(true);
   const [loading, setLoading] = useState(false);
 
@@ -30,7 +33,7 @@ const SackGame = ({host}) => {
         setBags(prevBags =>
           prevBags.map(bag => ({
             ...bag,
-            position: bagMoving && !gameOver ? (bag.position >= window.innerWidth + 150 ? -250 : bag.position + bagSpeed) : bag.position
+            position: bagMoving && !gameOver ? (bag.position >= window.innerWidth + 150 ? -300 : bag.position + bagSpeed) : bag.position
           }))
         );
       }, 50);
@@ -125,12 +128,13 @@ const SackGame = ({host}) => {
     // Redirect to the home page or "/" route
     setLoading(true); // Set loading state to true
     try {
+      const userId = localStorage.getItem("userId");
       const data = {
         score
-      }
+      }      
       const response = await axios.put(`${host}/api/users/snapscore/${userId}`, data);
       if(response.status ===200){
-        navigate("/home");
+        navigate("/thank");
       }else{
         alert("Error in submitting the Score. Please retry.");
         setLoading(false);
@@ -164,13 +168,13 @@ const SackGame = ({host}) => {
               top: '50%',
               left: bag.position,
               transform: 'translate(-50%, -50%)',
-              width: '150px', // Adjust size as needed
-              height: '150px' // Adjust size as needed
+              width: '250px', // Adjust size as needed
+              height: '250px' // Adjust size as needed
             }}
           />
         ))}
         <div
-          className={`absolute left-[${boxPosition}] w-[200px] h-[200px] border-[8px] border-[#fee590]`}
+          className={`absolute left-[${boxPosition}] w-[300px] h-[300px] border-[8px] border-[#fee590]`}
         ></div>
         <div className="absolute top-0 right-0 m-4 text-white">
           <p>Score: {score}</p>

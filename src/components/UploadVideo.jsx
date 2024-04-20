@@ -4,7 +4,7 @@ import submitButton from "../assets/Sumit.png"; // Import submit button image
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import instruction from '../assets/VideoInstruction.png'
-const userId = localStorage.getItem("userId");
+
 
 const UploadVideo = ({host}) => {
   const [video, setVideo] = useState(null);
@@ -29,6 +29,7 @@ const UploadVideo = ({host}) => {
     }
     try {
       setLoading(true)
+      const userId = localStorage.getItem("userId");
       const formData = new FormData();
       formData.append("video", video);
       // Send video data to the backend using Axios
@@ -39,7 +40,7 @@ const UploadVideo = ({host}) => {
       });
       if(response.status === 200){
         setLoading(false)
-        Navigate("/home")
+        Navigate("/thank")
       }else{
         alert("Some error occur in uploding, Please try again in some time")
         setLoading(false)
@@ -78,7 +79,7 @@ const UploadVideo = ({host}) => {
 </div>
       </div>
       
-      <form onSubmit={handleSubmit} className="p-6 rounded-md w-[400px]">
+      <form onSubmit={handleSubmit} className="p-6 rounded-md w-[400px] flex flex-col justify-center items-center">
         {/* <label htmlFor="videoUpload" className="text-4xl text-[#fee590] mb-4 pb-4 text-center">Upload Your Video</label> */}
         <input
           type="file"
@@ -90,12 +91,9 @@ const UploadVideo = ({host}) => {
         />
         {loading? 
         ( // Show loading spinner if loading state is true
-        <svg
-          className="animate-spin h-6 w-6 mr-3 text-white"
-          viewBox="0 0 24 24"
-        >
-         
-        </svg>
+        <button type="button" className="bg-[#D2A561] text-black px-5 py-2 rounded-md text-xl font-semibold" disabled>
+        Processing...
+      </button>
       ) : (   
         <button
           type="submit"

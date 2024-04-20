@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import deskbg from "../assets/desktopbg.jpg";
 
-const userId = localStorage.getItem("userId");
-
 const Quiz = ({ host }) => {
   const navigate = useNavigate();
   const [score, setScore] = useState(0);
@@ -75,10 +73,10 @@ const Quiz = ({ host }) => {
           setSelectedOption(null);
         } else {
           setShowGameOverModal(true);
-          clearInterval(timer.current) // Show game over modal when all questions are answered
+          clearInterval(timer.current); // Show game over modal when all questions are answered
         }
       }, 2000); // Move to next question after 2 seconds
-    } else {      
+    } else {
       setSelectedCorrectOption(
         questions[currentQuestion].options.find((option) => option.isCorrect)
           .text
@@ -88,29 +86,38 @@ const Quiz = ({ host }) => {
     }
   };
 
-  const handleSubmit = () => {
-    clearInterval(timer.current); // Stop the timer
+  const handleSubmit = async () => {
+    try {
+      clearInterval(timer.current); // Stop the timer
+      const userId = localStorage.getItem("userId");
 
-    // Submit user data to the backend
-    const userData = {
-      score,
-      timeTaken: 60 - timeLeftRef.current, // Calculate time taken in seconds
-    };
-    axios
-      .put(`${host}/api/users/quizscore/${userId}`, userData)
-      .then((response) => {
-        console.log("User data submitted successfully:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error submitting user data:", error);
-      });
-    navigate("/home");
+      // Submit user data to the backend
+      const userData = {
+        score,
+        timeTaken: 60 - timeLeftRef.current, // Calculate time taken in seconds
+      };
+      console.log("score :", score);
+      const response = await axios.put(
+        `${host}/api/users/quizscore/${userId}`,
+        userData
+      );
+      if (response.status === 200) {
+        navigate("/thank");
+      } else {
+        alert("Error Uploading score, Please Try again!");
+      }
+    } catch (error) {
+      alert("Error Uploading score, Please Try again!");
+    }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen relative" style={{ backgroundImage: `url(${deskbg})` }}>
+    <div
+      className="flex flex-col items-center justify-center h-screen relative"
+      style={{ backgroundImage: `url(${deskbg})` }}
+    >
       <div className="absolute top-0 right-0 m-4 text-lg text-[#fee590] bg-[#311514] px-4 py-2 rounded-xl">
-      {timeLeft} | Score: {score}
+        {timeLeft} | Score: {score}
       </div>
       <h1 className="text-[60px] font-bold mb-8 text-center text-[#fee590]">
         QUIZ
@@ -120,7 +127,8 @@ const Quiz = ({ host }) => {
           <div className="bg-[#2F1312] p-8 rounded-lg text-center text-[#fee590] shadow-xl modal-container">
             <h2 className="text-3xl font-bold mb-4">Game Over!</h2>
             <p className="mb-4">
-              Time taken: {Math.floor((60 - timeLeftRef.current) / 60)} minutes {timeLeftRef.current % 60} seconds
+              Time taken: {Math.floor((60 - timeLeftRef.current) / 60)} minutes{" "}
+              {timeLeftRef.current % 60} seconds
             </p>
             <p>Score: {score}</p>
             <button
@@ -150,7 +158,8 @@ const Quiz = ({ host }) => {
                 if (currentQuestion < questions.length - 1) {
                   setCurrentQuestion(currentQuestion + 1);
                   setSelectedOption(null);
-                  timer.current = setInterval(() => { // Resume timer when next question is clicked
+                  timer.current = setInterval(() => {
+                    // Resume timer when next question is clicked
                     if (timeLeftRef.current > 0) {
                       setTimeLeft((prevTimeLeft) => {
                         timeLeftRef.current = prevTimeLeft - 1; // Update ref with the latest timeLeft value

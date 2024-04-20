@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Quiz from "./components/Quiz";
-import Score from "./components/Score";
+import Thank from "./components/Thank";
 import Register from "./components/Register";
 import SackGame from "./components/SackGame";
 import UploadVideo from "./components/UploadVideo";
@@ -11,14 +11,14 @@ import Leaderboard from "./components/Leaderboard";
 
 const App = () => {
   // const host = "https://ambujacement.chickenkiller.com"
-  const host = "https://ultratechbackend.shobizgames.com"
-  // const host = "http://localhost:3000"
+  // const host = "https://ultratechbackend.shobizgames.com"
+  const host = "http://localhost:3000"
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Register host={host}/>} />
         <Route path="/quiz" element={<Quiz host={host}/>} />
-        <Route path="/result" element={<Score />} />
+        <Route path="/thank" element={<Thank />} />
         <Route path="/home" element={<Home />} />
         <Route path="/snapthebag" element={<SackGame host={host}/>} />
         <Route path="/uploadvideo" element={<UploadVideo host={host}/>} />

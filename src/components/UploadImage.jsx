@@ -41,7 +41,7 @@ const UploadImage = ({host}) => {
       });
       if(response.status === 200){
         setLoading(false)
-        Navigate("/home")
+        Navigate("/thank")
       }else{
         alert("Some error occur in uploding, Please try again in some time")
         setLoading(false)
@@ -79,7 +79,7 @@ const UploadImage = ({host}) => {
 8. अल्ट्राटेक के पास आपकी पूर्व सूचना के बिना किसी भी उद्देश्य के लिए यह छवि/तस्वीर का उपयोग करने का पूर्ण अधिकार है</h1>
 </div>
       </div>
-      <form onSubmit={handleSubmit} className="p-6 rounded-md w-[400px] ">
+      <form onSubmit={handleSubmit} className="p-6 rounded-md w-[400px] flex flex-col justify-center items-center">
         <input
           type="file"
           id="imageUpload"
@@ -90,7 +90,7 @@ const UploadImage = ({host}) => {
         />
         {loading? 
         ( // Show loading spinner if loading state is true
-        <button type="button" className="bg-[#D2A561] text-black px-5 py-2 rounded-md" disabled>
+        <button type="button" className="bg-[#D2A561] text-black px-5 py-2 rounded-md text-xl font-semibold" disabled>
         Processing...
       </button>
       ) : (   
