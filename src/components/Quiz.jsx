@@ -78,14 +78,12 @@ const Quiz = ({ host }) => {
           clearInterval(timer.current) // Show game over modal when all questions are answered
         }
       }, 2000); // Move to next question after 2 seconds
-    } else {
-      
+    } else {      
       setSelectedCorrectOption(
         questions[currentQuestion].options.find((option) => option.isCorrect)
           .text
       );
       setShowCorrectModal(true); // Show correct answer modal when answer is incorrect
-      console.log("hit")
       clearInterval(timer.current);
     }
   };

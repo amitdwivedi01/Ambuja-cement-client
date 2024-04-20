@@ -10,7 +10,8 @@ import UploadImage from "./components/UploadImage";
 import Leaderboard from "./components/Leaderboard";
 
 const App = () => {
-  const host = "https://ambujacement.chickenkiller.com"
+  // const host = "https://ambujacement.chickenkiller.com"
+  const host = "https://ultratechbackend.shobizgames.com"
   // const host = "http://localhost:3000"
   return (
     <Router>
@@ -23,9 +24,6 @@ const App = () => {
         <Route path="/uploadvideo" element={<UploadVideo host={host}/>} />
         <Route path="/uploadimage" element={<UploadImage host={host}/>} />
         <Route path="/leaderboard" element={<Leaderboard host={host}/>} />
-
-
-
       </Routes>
     </Router>
   );
