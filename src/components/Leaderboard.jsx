@@ -3,7 +3,7 @@ import axios from "axios";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 
-const Leaderboard = ({host}) => {
+const Leaderboard = ({ host }) => {
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
@@ -12,15 +12,13 @@ const Leaderboard = ({host}) => {
   useEffect(() => {
     // Fetch the leaderboard data when the component mounts
     fetchLeaderboard(leaderboardType);
-  }, []); // Empty dependency array ensures this effect runs only once when the component mounts
+  }, [leaderboardType]); // Fetch new leaderboard when leaderboardType changes
 
   const fetchLeaderboard = async (sortBy) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get(
-        `${host}/api/users/sort-by-${sortBy}`
-      );
+      const response = await axios.get(`${host}/api/users/sort-by-${sortBy}`);
       setUsers(response.data);
       setLeaderboardType(sortBy);
     } catch (error) {
@@ -39,10 +37,12 @@ const Leaderboard = ({host}) => {
       Region: user.region,
       Number: user.number,
       Snap_Score: user.snapScore,
-      Quiz_Score: user.quizScore.score,
-      Time_Taken_seconds: user.quizScore.timeTaken,
-      videoUrl:user.videoUrl,
-      imageUrl:user.imageUrl
+      Quiz_Score: user.quizScore?.score,
+      Time_Taken_seconds: user.quizScore?.timeTaken,
+      feedback: user.quizScore?.userComment,
+      videoUrl: user.videoUrl,
+      imageUrl: user.imageUrl,
+      imageorvideo: user.imageorvideo,
     }));
     const ws = XLSX.utils.json_to_sheet(formattedData);
     const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
@@ -53,9 +53,8 @@ const Leaderboard = ({host}) => {
   };
 
   return (
-    <div className="leaderboard-container h-screen bg-gray-100 flex flex-col items-center justify-center">
-      <div className="max-w-4xl p-8 bg-white rounded-lg shadow-md w-full relative">
-        
+    <div className="leaderboard-container h-screen bg-gray-100 flex flex-col items-center ">
+      <div className="p-8 bg-white rounded-lg shadow-md">
         <div className="flex gap-4 mb-6">
           <button
             onClick={() => fetchLeaderboard("snap-score")}
@@ -73,13 +72,12 @@ const Leaderboard = ({host}) => {
           >
             Quiz Score Leaderboard
           </button>
-
           <button
-          onClick={exportToExcel}
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
-          Export to Excel
-        </button>
+            onClick={exportToExcel}
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Export to Excel
+          </button>
         </div>
         {loading && <p className="text-center">Loading...</p>}
         {error && <p className="text-center text-red-500">Error: {error}</p>}

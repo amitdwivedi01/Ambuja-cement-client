@@ -72,6 +72,7 @@ const Register = ({host}) => {
           name="name"
           value={formData.name}
           onChange={handleChange}
+          required
           placeholder="Name"
           className="w-full mb-4 p-2 text-4xl rounded-xl border-4 border-[#D2A561] bg-black bg-opacity-50 text-[#fee590] placeholder-[#887842] text-center"
           style={{ outline: "none" }} // Remove outline when clicked
@@ -80,6 +81,7 @@ const Register = ({host}) => {
           type="Number"
           name="number"
           value={formData.number}
+          required
           onChange={handleChange}
           placeholder="Number"
           className="w-full mb-4 p-2 text-4xl rounded-xl border-4 border-[#D2A561] bg-black bg-opacity-50 text-[#fee590] placeholder-[#887842] text-center"
@@ -88,6 +90,7 @@ const Register = ({host}) => {
         <input
           type="text"
           name="region"
+          required
           value={formData.region}
           onChange={handleChange}
           placeholder="Region"

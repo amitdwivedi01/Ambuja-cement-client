@@ -9,33 +9,61 @@ const Quiz = ({ host }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [questions, setQuestions] = useState([
     {
-      question: "Is this image of a cat?",
+      question: "बैंकॉक में स्थित शुद्ध सोने से बनी, 5.5 टन वजन वाली, और 250 मिलियन डॉलर मूल्य की, प्लास्टर और रंगीन कांच की परत से ढकी और छिपी हुई विश्व की सबसे बड़ी बुद्ध प्रतिमा, जिसे अक्सर ‘स्वर्ण बुद्धा’ के नाम से जाना जाता है, उसकी असली पहचान कितने वर्षों के बाद सामने आई और किस वर्ष में हुई?",
       options: [
-        { text: "Yes", isCorrect: true },
-        { text: "No", isCorrect: false },
-        { text: "Maybe", isCorrect: false },
-        { text: "Maybe", isCorrect: false },
+        { text: "a)	200 साल बाद, वर्ष 1955 में", isCorrect: true },
+        { text: "b)	250 साल बाद, वर्ष 1945 में", isCorrect: false },
+        { text: "c)	220 साल बाद, वर्ष 1955 में", isCorrect: false },
+        { text: "d)	200 साल बाद, वर्ष 1965 में", isCorrect: false },
       ],
     },
     {
-      question: "Is this object a car?",
+      question: 'बैंकॉक की 372 किमी लंबी जीवन रेखा, "द रिवर ऑफ किंग्स", जिसे अक्सर "चाओ फ्राया रिवर या नदी" के नाम से भी जाना जाता है, उसका नाम किस राजा द्वारा रखा गया था?',
       options: [
-        { text: "Yes", isCorrect: false },
-        { text: "No", isCorrect: true },
-        { text: "Maybe", isCorrect: false },
-        { text: "Maybe", isCorrect: false },
+        { text: "a)	राजा राम प्रथम", isCorrect: true },
+        { text: "b)	राजा राम द्वितीय", isCorrect: false },
+        { text: "c)	राजा राम तृतीया", isCorrect: false },
+        { text: "d)	राजा राम चतुर्थ", isCorrect: false },
       ],
     },
     {
-      question: "Is this object a bike?",
+      question: "‘सफ़ारी वर्ल्ड’ के किस भाग में एक बड़ी झील है जहाँ पर्यटक सुंदर नाव की सवारी का आनंद लेते हुए और तटों के किनारे विभिन्न जानवरों को देखते हुए अफ्रीकी और एशियाई सफ़ारी के रोमांच और उत्साह का अनुभव कर सकते हैं? ",
       options: [
-        { text: "Yes", isCorrect: false },
-        { text: "No", isCorrect: false },
-        { text: "Maybe", isCorrect: true },
-        { text: "Maybe", isCorrect: false },
+        { text: "a)	अफ़्रीकी पार्क", isCorrect: false },
+        { text: "b)	समुद्री पार्क", isCorrect: false },
+        { text: "c)	जंगल क्रूज", isCorrect: true },
+        { text: "d)	वाटर लेक सफारी", isCorrect: false },
       ],
     },
-    // Add more questions here
+    {
+      question: "बैंकॉक को दुनिया के सबसे लंबे शहर के नाम के रूप में गिनीज बुक ऑफ वर्ल्ड रिकॉर्ड्स में सूचीबद्ध किया गया है। यह नाम कितने अक्षर का है?",
+      options: [
+        { text: "a)	158 अक्षर", isCorrect: false },
+        { text: "b)	178 अक्षर", isCorrect: false },
+        { text: "c)	168 अक्षर", isCorrect: true },
+        { text: "d)	188 अक्षर", isCorrect: false },
+      ],
+    }
+    ,
+    {
+      question: "बैंकॉक के सबसे बड़े थोक कपड़ा बाज़ार का क्या नाम है?",
+      options: [
+        { text: "a)	वांग लैंग मार्केट", isCorrect: false },
+        { text: "b)	चाटुचक बाजार", isCorrect: false },
+        { text: "c)	प्रतानुम मार्केट", isCorrect: true },
+        { text: "d)	चाइनाटाउन मार्केट", isCorrect: false },
+      ],
+    }
+    ,
+    {
+      question: "बैंकॉक के ‘सफारी वर्ल्ड’ में हर रोज़ होने वाला सबसे प्रसिद्ध ‘ओरंगुटान शो’ क्या कहलाता है?",
+      options: [
+        { text: "a)	ओरंगुटान बॉक्सिंग शो", isCorrect: true },
+        { text: "b)	ओरंगुटान साइक्लिंग शो", isCorrect: false },
+        { text: "c)	ओरंगुटान एक्टिंग शो", isCorrect: false },
+        { text: "d)	ओरंगुटान और हाथी कुश्ती शो", isCorrect: false },
+      ],
+    },
   ]);
   const [timeLeft, setTimeLeft] = useState(60); // 60 seconds
   const [showGameOverModal, setShowGameOverModal] = useState(false); // State for game over modal visibility
@@ -121,7 +149,7 @@ const Quiz = ({ host }) => {
         {timeLeft} | Score: {score}
       </div>
       <h1 className="text-[60px] font-bold mb-8 text-center text-[#fee590]">
-        QUIZ
+      बैंकॉक सामान्य ज्ञान प्रतियोगिता
       </h1>
       {showGameOverModal && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-75">
