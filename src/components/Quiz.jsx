@@ -1,42 +1,53 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import deskbg from "../assets/desktopbg.jpg";
+import deskbg from "../assets/Websitebg.jpg";
 
 const Quiz = ({ host }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
+    useEffect(() => {
+      const userId = localStorage.getItem("userId");
+      const isquiz = localStorage.getItem('quiz');
+      if (!userId) {
+        navigate("/"); // If userId exists, navigate to home page
+      }
+      if(isquiz){
+        navigate('/home')
+      }
+    }, []);
   const [score, setScore] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [questions, setQuestions] = useState([
     {
-      question: "बैंकॉक में स्थित शुद्ध सोने से बनी, 5.5 टन वजन वाली, और 250 मिलियन डॉलर मूल्य की, प्लास्टर और रंगीन कांच की परत से ढकी और छिपी हुई विश्व की सबसे बड़ी बुद्ध प्रतिमा, जिसे अक्सर ‘स्वर्ण बुद्धा’ के नाम से जाना जाता है, उसकी असली पहचान कितने वर्षों के बाद सामने आई और किस वर्ष में हुई?",
+      question: "बैंकॉक में विश्व की सबसे बड़ी बुद्ध प्रतिमा, जो ठोस शुद्ध सोने से बनी है, जिसका वज़न 5.5 टन है और जिस्की कीमत 250 मिलियन डॉलर है, उसको किस नाम से जाना जाता है?",
       options: [
-        { text: "a)	200 साल बाद, वर्ष 1955 में", isCorrect: true },
-        { text: "b)	250 साल बाद, वर्ष 1945 में", isCorrect: false },
-        { text: "c)	220 साल बाद, वर्ष 1955 में", isCorrect: false },
-        { text: "d)	200 साल बाद, वर्ष 1965 में", isCorrect: false },
+        { text: "a)	द  ग्रेट बुद्धा", isCorrect: false },
+        { text: "b)	रेक्लीनिंग बुद्धा", isCorrect: false },
+        { text: "c)	गोल्डन बुद्धा", isCorrect: true },
+        { text: "d)	एमराल्ड बुद्धा", isCorrect: false },
       ],
     },
     {
-      question: 'बैंकॉक की 372 किमी लंबी जीवन रेखा, "द रिवर ऑफ किंग्स", जिसे अक्सर "चाओ फ्राया रिवर या नदी" के नाम से भी जाना जाता है, उसका नाम किस राजा द्वारा रखा गया था?',
+      question: '372 किमी लंबी नदी, बैंकॉक की जीवन रेखा, जिसका नाम राजा राम प्रथम ने "द रिवर ऑफ किंग्स", रखा था उसे अक्सर किस नाम से जाना जाता है?',
       options: [
-        { text: "a)	राजा राम प्रथम", isCorrect: true },
-        { text: "b)	राजा राम द्वितीय", isCorrect: false },
-        { text: "c)	राजा राम तृतीया", isCorrect: false },
-        { text: "d)	राजा राम चतुर्थ", isCorrect: false },
+        { text: "a)	चाओ फ्राया रिवर या नदी", isCorrect: true },
+        { text: "b)	मेकांग नदी", isCorrect: false },
+        { text: "c)	यांग्ज़ी नदी", isCorrect: false },
+        { text: "d)	सिंधु नदी", isCorrect: false },
       ],
     },
     {
-      question: "‘सफ़ारी वर्ल्ड’ के किस भाग में एक बड़ी झील है जहाँ पर्यटक सुंदर नाव की सवारी का आनंद लेते हुए और तटों के किनारे विभिन्न जानवरों को देखते हुए अफ्रीकी और एशियाई सफ़ारी के रोमांच और उत्साह का अनुभव कर सकते हैं? ",
+      question: "बैंकॉक में कौन सा लोकप्रिय आकर्षण है, जो यात्रियों को एक ही स्थान पर वन्य जीवन सैर, जानवरों और पक्षियों की रोमांचकारी सवारी और मनोरंजक शो, एक साथ अनुभव करने का मौका प्रदान करता है?",
       options: [
-        { text: "a)	अफ़्रीकी पार्क", isCorrect: false },
-        { text: "b)	समुद्री पार्क", isCorrect: false },
-        { text: "c)	जंगल क्रूज", isCorrect: true },
-        { text: "d)	वाटर लेक सफारी", isCorrect: false },
+        { text: "a)	शारजाह सफारी पार्क", isCorrect: false },
+        { text: "b)	मसाई मारा राष्ट्रीय रिज़र्व", isCorrect: false },
+        { text: "c)	खाओ याई राष्ट्रीय उद्यान", isCorrect: false },
+        { text: "d)	सफ़ारी वर्ल्ड", isCorrect: true },
       ],
-    },
+    }
+    ,
     {
-      question: "बैंकॉक को दुनिया के सबसे लंबे शहर के नाम के रूप में गिनीज बुक ऑफ वर्ल्ड रिकॉर्ड्स में सूचीबद्ध किया गया है। यह नाम कितने अक्षर का है?",
+      question: "बैंकॉक को दुनिया के सबसे लंबे शहर के नाम के रूप में गिनीज़ बुक ऑफ वर्ल्ड रिकॉर्ड्स में सूचीबद्ध किया गया है। यह नाम कितने अक्षर का है?",
       options: [
         { text: "a)	158 अक्षर", isCorrect: false },
         { text: "b)	178 अक्षर", isCorrect: false },
@@ -51,17 +62,34 @@ const Quiz = ({ host }) => {
         { text: "a)	वांग लैंग मार्केट", isCorrect: false },
         { text: "b)	चाटुचक बाजार", isCorrect: false },
         { text: "c)	प्रतानुम मार्केट", isCorrect: true },
-        { text: "d)	चाइनाटाउन मार्केट", isCorrect: false },
-      ],
-    }
-    ,
-    {
-      question: "बैंकॉक के ‘सफारी वर्ल्ड’ में हर रोज़ होने वाला सबसे प्रसिद्ध ‘ओरंगुटान शो’ क्या कहलाता है?",
-      options: [
-        { text: "a)	ओरंगुटान बॉक्सिंग शो", isCorrect: true },
-        { text: "b)	ओरंगुटान साइक्लिंग शो", isCorrect: false },
-        { text: "c)	ओरंगुटान एक्टिंग शो", isCorrect: false },
         { text: "d)	ओरंगुटान और हाथी कुश्ती शो", isCorrect: false },
+      ],
+    },
+    {
+      question: "योवरात’ के नाम से जाना जाने वाला यह ज़िला दस लाख से अधिक जातीय चीनी लोगों का घर है और बैंकॉक के सबसे रंगीन ज़िलों में से एक है। दिन के दौरान, दुकानें और स्टॉल सभी सभी कल्पनीय उत्पाद बेचते हैं, जबकि रात में खाने-पीने की दुकानें सड़कों पर कब्ज़ा कर लेती हैं। इस जगह को किस नाम से जाना जाता है? ",
+      options: [
+        { text: "a)	होमटाउन", isCorrect: false },
+        { text: "b)	क्लुंटाउन", isCorrect: false },
+        { text: "c)	चाइनटाउन", isCorrect: true },
+        { text: "d)	थाई टाउन", isCorrect: false },
+      ],
+    },
+    {
+      question: "प्रत्येक थाई मुद्रा सिक्के पर बैंकॉक के एक महत्वपूर्ण मंदिर की तस्वीर अंकित है। थाई सिक्के के किस मूल्यवर्ग में वाट अरुण मंदिर की तस्वीर अंकित है?",
+      options: [
+        { text: "a)	1 थाई बात", isCorrect: false },
+        { text: "b)	2 थाई बात", isCorrect: false },
+        { text: "c)	5 थाई बात", isCorrect: false },
+        { text: "d)	10 थाई बात", isCorrect: true },
+      ],
+    },
+    {
+      question: "विश्व प्रसिद्ध कैफीन से भरपूर एनर्जी ड्रिंक, जिसे थाई में ‘क्रेटिंग डेंग’ के नाम से जाना जाता है,  और जिसे 1976 में थाईलैंड में बनाया गया था, उसका क्या नाम है?",
+      options: [
+        { text: "a)	रेडबुल ", isCorrect: true },
+        { text: "b)	स्टिंग ", isCorrect: false },
+        { text: "c)	माउंटेन ड्यू ", isCorrect: false },
+        { text: "d)	मॉन्स्टर", isCorrect: false },
       ],
     },
   ]);
@@ -131,6 +159,7 @@ const Quiz = ({ host }) => {
         userData
       );
       if (response.status === 200) {
+        localStorage.setItem("quiz", true);
         navigate("/thank");
       } else {
         alert("Error Uploading score, Please Try again!");
@@ -148,7 +177,7 @@ const Quiz = ({ host }) => {
       <div className="absolute top-0 right-0 m-4 text-lg text-[#fee590] bg-[#311514] px-4 py-2 rounded-xl">
         {timeLeft} | Score: {score}
       </div>
-      <h1 className="text-[60px] font-bold mb-8 text-center text-[#fee590]">
+      <h1 className="text-3xl font-bold mb-8 text-center text-[#fee590]">
       बैंकॉक सामान्य ज्ञान प्रतियोगिता
       </h1>
       {showGameOverModal && (
@@ -166,7 +195,7 @@ const Quiz = ({ host }) => {
                 value={userComment}
                 onChange={(e) => setUserComment(e.target.value)}
                 placeholder="Enter your comment here..."
-                className="mt-4 px-4 py-2 w-full border border-gray-300 rounded-md"
+                className="mt-4 px-4 py-2 w-full border text-black border-gray-300 rounded-md"
               ></textarea>
               <button
                 onClick={handleSubmit}
@@ -220,7 +249,7 @@ const Quiz = ({ host }) => {
         </div>
       )}
       <div className="p-6 rounded-md w-full flex justify-center items-center flex-col">
-        <h2 className="text-3xl font-semibold mb-8 text-[#fee590]">
+        <h2 className="text-xl font-semibold mb-8 text-[#fee590]">
           {questions[currentQuestion].question}
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">

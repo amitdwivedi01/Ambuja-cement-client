@@ -1,10 +1,17 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import thank from '../assets/thank.jpg'
-import deskbg from '../assets/desktopbg.jpg';
+import deskbg from '../assets/Websitebg.jpg';
 import { useNavigate } from "react-router-dom";
 
 const Thank = () => {
-  const Navigate = useNavigate()
+  const Navigate = useNavigate();
+  
+    useEffect(() => {
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        Navigate("/"); // If userId exists, navigate to home page
+      }
+    }, []);
   return (
     <div className="bg-cover h-screen" style={{backgroundImage: `url(${deskbg})`}}>
       <div className='flex flex-col justify-center items-center h-screen w-full'>

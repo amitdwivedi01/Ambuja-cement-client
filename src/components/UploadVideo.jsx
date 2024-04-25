@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import bgImage from "../assets/loginpage.png"; // Import background image
+import React, { useState, useEffect } from "react";
+import bgImage from "../assets/Websitebg.jpg"; // Import background image
 import submitButton from "../assets/Sumit.png"; // Import submit button image
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,14 @@ import instruction from '../assets/VideoInstruction.png'
 const UploadVideo = ({host}) => {
   const [video, setVideo] = useState(null);
   const [loading, setLoading] = useState(false)
-  const Navigate = useNavigate()
+  const Navigate = useNavigate();
+  
+    useEffect(() => {
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        Navigate("/"); // If userId exists, navigate to home page
+      }
+    }, []);
 
   const handleVideoChange = (e) => {
     const file = e.target.files[0];
@@ -56,24 +63,26 @@ const UploadVideo = ({host}) => {
       className={`flex flex-col items-center justify-center h-screen bg-cover `}
       style={{ backgroundImage: `url(${bgImage})`}}
     >
-        <h1 className="text-[#fee590] text-[50px]">नियम और शर्तें लागू</h1>
+        <h1 className="text-[#fee590] text-2xl">दिखाइये अपना लय भारी जलवा</h1> <br />
       <div className="md:h-[55%] w-full bg-black opacity-[0.58] flex justify-center items-center">
         <div className="flex justify-center items-center w-[80%]">
-        <h1 className="text-[#fee590] my-4 mx-[10px] text-[12px]">दिखाइये अपना लई भारी जलवा <br />
+        <h1 className="text-[#fee590] my-4 mx-[10px] text-[11px]">
 
-आप अल्ट्राटेक परिवार के एक विशेष सदस्य हैं। आपका साहस और आपका पूर्ण सहयोग अत्यंत सराहनीय वा प्रशंसनीय है। आपका हर संकल्प, आपका हर कदम लई भारी है। <br /> <br />
-1. वीडियो अच्छे उजाले में खिंची होनी चाहिए व चेहरा साफ दिखना चाहिए <br />
-2. अच्छे से तैय्यार होकर वीडियो बनाएं <br />
-3. वीडियो केवल MP4 फॉर्मेट में ही होनी चाहिए <br />
-4. वीडियो में आपकी आवाज़ पूरी साफ सुनाई देनी चाहिए <br />
-5. आप फिल्म के किरदार में आकर अपना डायलॉग बोल सकते हैं या अपने खुद के स्टाइल में भी बोल सकते हैं <br />
-6. परंतु खास ध्यान रहे - अपनी फिल्म के डायलॉग में लाई भारी शब्द जोडना ना भूलें, अन्यथा आपकी वीडियो अगले चयन के लिए मान्य नहीं होगी <br />
-7. आपके वीडियो का साइज़ 20 MB से बड़ा नहीं होना चाहिए, वरना जमा नहीं हो पायेगी <br />
-8. ये वीडियो केवल अल्ट्राटेक प्रतियोगिता के लिए ही दी जानी चाहिए, इस वीडियो का उपयोग किसी भी तरह और किसी भी जगह नहीं किया जाना चाहिए <br />
-9. इस वीडियो को जमा करके, इस प्रतियोगिता के माध्यम से आप इस वीडियो का अपना सम्पूर्ण अधिकार अल्ट्राटेक को दे रहे हैं <br />
-10. अल्ट्राटेक के पास आपकी पूर्व सूचना के बिना किसी भी उद्देश्य के लिए इस वीडियो का उपयोग करने का पूर्ण अधिकार है <br />
-11. यह प्रतियोगिता 30 अप्रैल को रात 12 बजे समाप्त हो जायेगी <br />
-12. 3 सबसे ज़ियादा क्रिएटिव डायलॉग वीडियो का प्रदर्शन इवेंट मैं किया जाएगा </h1>
+        अपना कोई भी प्रिय और पसंदीदा फिल्मी / बॉलीवुड डायलॉग किसी भी फिल्म से चुनिए और उसमें अपना लय भारी का भाव और लय भारी का डायलॉग जोड़कर अपने स्टाइल में बोलकर रिकॉर्ड कीजिए और अपना वीडियो हमसे शेयर कीजिए। अल्ट्राटेक के टॉप जजों द्वारा चुने गए 3 सबसे ज़्यादा बेहतरीन, मज़ेदार, और क्रिएटिव डायलॉग वीडियो को ही
+इवेंट में  प्रदर्शित वा पुरुसकृत किया जाएगा। <br /> <br />
+नियम और शर्ते लागू <br /> <br />
+
+1. अपने डायलॉग वाली वीडियो को इस स्क्रीन के नीचे दिए गए बटन  पर अपलोड करें <br />
+2. वीडियो अच्छे उजाले में खिंची होनी चाहिए व चेहरा साफ दिखना चाहिए <br />
+3. अच्छे से तैय्यार होकर वीडियो बनाएं <br />
+4. वीडियो केवल MP4 फॉर्मेट में ही होनी चाहिए <br />
+5. वीडियो में आपकी आवाज़ पूरी साफ सुनाई देनी चाहिए <br />
+6. आप फिल्म के किरदार में आकर अपना डायलॉग बोल सकते हैं या अपने खुद के स्टाइल में भी बोल सकते हैं <br />
+7. परंतु खास ध्यान रहे - अपनी फिल्म के डायलॉग में लाई भारी शब्द जोडना ना भूलें, अन्यथा आपकी वीडियो अगले चयन के लिए मान्य नहीं होगी <br />
+8. आपके वीडियो का साइज़ 20 एमबी  से बड़ा नहीं होना चाहिए, वरना जमा नहीं हो पायेगी <br />
+9. यह प्रतियोगिता केवल  26 अप्रैल 2024 से 30 अप्रैल 2024 रात 12 बजे तक ही जारी रहेगी <br />
+
+ </h1>
 </div>
       </div>
       

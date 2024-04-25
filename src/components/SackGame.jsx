@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import backgroundImage from '../assets/desktopbg.jpg';
+import backgroundImage from '../assets/Websitebg.jpg';
 import bagImage from '../assets/cementbag.png';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -17,7 +17,7 @@ const SackGame = ({host}) => {
   const [boxPosition, setBoxPosition] = useState(0);
   const [boxWidth, setBoxWidth] = useState(200);
   const [score, setScore] = useState(0);
-  const [time, setTime] = useState(30);
+  const [time, setTime] = useState(15);
   const [gameOver, setGameOver] = useState(false);
   const [bagSpeed, setBagSpeed] = useState(35);
   const [bagMoving, setBagMoving] = useState(true);
@@ -25,6 +25,17 @@ const SackGame = ({host}) => {
 
   const intervalRef = useRef(null); // Define intervalRef
   const navigate = useNavigate();
+  
+    useEffect(() => {
+      const userId = localStorage.getItem("userId");
+      const issack = localStorage.getItem('sack');
+      if (!userId) {
+        navigate("/"); // If userId exists, navigate to home page
+      }
+      if(issack){
+        navigate('/home')
+      }
+    }, []);
   const timer = useRef(null); // Use useRef for the timer
 
   useEffect(() => {
@@ -134,6 +145,7 @@ const SackGame = ({host}) => {
       }      
       const response = await axios.put(`${host}/api/users/snapscore/${userId}`, data);
       if(response.status ===200){
+        localStorage.setItem("sack", true);
         navigate("/thank");
       }else{
         alert("Error in submitting the Score. Please retry.");
@@ -169,12 +181,12 @@ const SackGame = ({host}) => {
               left: bag.position,
               transform: 'translate(-50%, -50%)',
               width: '250px', // Adjust size as needed
-              height: '250px' // Adjust size as needed
+              height: '300px' // Adjust size as needed
             }}
           />
         ))}
         <div
-          className={`absolute left-[${boxPosition}] w-[300px] h-[300px] border-[8px] border-[#fee590]`}
+          className={`absolute left-[${boxPosition}] w-[320px] h-[350px] border-[8px] border-[#fee590]`}
         ></div>
         <div className="absolute top-0 right-0 m-4 text-white">
           <p>Score: {score}</p>

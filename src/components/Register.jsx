@@ -3,6 +3,7 @@ import axios from "axios";
 import bgImage from "../assets/loginpage.png"; // Import background image
 import submitButton from "../assets/Sumit.png"; // Import submit button image
 import { useNavigate } from "react-router-dom";
+import logo from '../assets/logo2.png'
 
 const Register = ({host}) => {
   const navigate = useNavigate();
@@ -20,14 +21,24 @@ const Register = ({host}) => {
     if (userId) {
       navigate("/home"); // If userId exists, navigate to home page
     }
-  }, [navigate]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    // Check if the input field is "number" and the length of the value exceeds 10
+    if (name === "number" && value.length > 10) {
+      // If the length exceeds 10, only take the first 10 characters
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: value.slice(0, 10),
+      }));
+    } else {
+      // Otherwise, update the state normally
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -51,12 +62,12 @@ const Register = ({host}) => {
         // Reset form data after successful submission
         navigate("/home");
       }else{
-        alert("Error register!, Please try again in sometime")
+        setError("Error registering! Please try again later.");
         setLoading(false);
       }
     } catch (error) {
       // Handle errors
-      alert("Error register!, Please try again in sometime")
+      setError("Error registering! Please try again later.");
       setLoading(false);
     }
   };
@@ -66,6 +77,9 @@ const Register = ({host}) => {
       className={`flex flex-col items-center justify-center h-screen bg-cover w-screen `}
       style={{ backgroundImage: `url(${bgImage})` }}
     >
+      <div className="my-[10px]">
+        <img className="w-[230px]" src={logo} alt="" />
+      </div>
       <form onSubmit={handleSubmit} className="p-6 rounded-md w-[400px] flex flex-col justify-center items-center">
         <input
           type="text"
@@ -73,19 +87,21 @@ const Register = ({host}) => {
           value={formData.name}
           onChange={handleChange}
           required
-          placeholder="Name"
+          placeholder="Name with Surname"
           className="w-full mb-4 p-2 text-4xl rounded-xl border-4 border-[#D2A561] bg-black bg-opacity-50 text-[#fee590] placeholder-[#887842] text-center"
           style={{ outline: "none" }} // Remove outline when clicked
         />
         <input
-          type="Number"
+          type="text" // Changed input type to text
           name="number"
           value={formData.number}
           required
           onChange={handleChange}
-          placeholder="Number"
+          placeholder="Contact Number"
           className="w-full mb-4 p-2 text-4xl rounded-xl border-4 border-[#D2A561] bg-black bg-opacity-50 text-[#fee590] placeholder-[#887842] text-center"
           style={{ outline: "none" }} // Remove outline when clicked
+          pattern="\d{10}" // Added pattern attribute for 10 digits
+          title="Please enter a 10-digit number" // Added title for pattern validation
         />
         <input
           type="text"

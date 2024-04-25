@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import bgImage from "../assets/loginpage.png"; // Import background image
+import React, { useState,useEffect } from "react";
+import bgImage from "../assets/Websitebg.jpg"; // Import background image
 import submitButton from "../assets/Sumit.png"; // Import submit button image
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,13 @@ const UploadImage = ({host}) => {
   const [image, setImage] = useState(null);
   const [loading,setLoading]= useState(false)
   const Navigate = useNavigate();
+  
+    useEffect(() => {
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        Navigate("/"); // If userId exists, navigate to home page
+      }
+    }, []);
   
 
   const handleImageChange = (e) => {
@@ -57,27 +64,24 @@ const UploadImage = ({host}) => {
       className={`flex flex-col items-center justify-center h-screen bg-cover `}
       style={{ backgroundImage: `url(${bgImage})`}}
     >
-      <h1 className="text-[#fee590] text-[50px]">नियम और शर्तें लागू</h1>
+      <h1 className="text-[#fee590] text-2xl">नंबर 1 अल्ट्राटेक का नंबर 1 परिवार </h1> <br />
       <div className="md:h-[55%] w-full bg-black opacity-[0.58] flex justify-center items-center">
         <div className="flex justify-center items-center w-[95%] md:w-[80%]">
-        <h1 className="text-[#fee590] my-4 mx-[10px] text-[12px]">बनेगा तो बढ़ेगा इंडिया. <br />
-अब आप से ही बढ़ेगा इंडिया। <br /> <br />
+        <h1 className="text-[#fee590] my-4 mx-[10px] text-[11px]">
+        अपने नंबर 1 परिवार के साथ बिताए गए अपने नंबर 1 पल की अपनी बेस्ट पारिवारिक तस्वीर अपलोड करें। इस तस्वीर के माध्यम से आपकी क्रिएटिविटी सामने आनी चाहिए. इवेंट में 3 सर्वश्रेष्ठ और सबसे रचनात्मक रूप से क्लिक की गई तस्वीरें प्रदर्शित की जाएंगी. <br />
 
-प्रतियोगिता के नियम <br /> 
-आपके शहर के निर्माण में आपके अल्ट्राटेक डीलरशिप का क्या महत्व है? <br />
-अपने और अपने परिवार के साथ अपने अल्ट्राटेक रिटेल आउटलेट की एक अच्छी तस्वीर खींच के हमें भेजें और हमें दिखाएं अपनी खुशियों की दुकान, 
-जिसके द्वार आप कर रहे हों अपने देश के निर्माण में महेतवपूर्ण योगदान <br /> <br />
+आइए देखें आप और आपका अपने नंबर 1 परिवार कितनेनंबर 1 क्रिएटिव हैं। <br /> <br />
 
-1. अपनी नंबर 1 फैमिली  फोटो / तसवीर <br />
-2. तस्वीर / फोटो  अच्छे उजाले में खिंची होनी चाहिए और चेहरे साफ दिखने चाहिए <br />
-3. तैय्यार होकर फोटो / तसवीर खींचें <br />
-4. तस्वीर / फोटो केवल जेपीईजी फॉर्मेट और लैंडस्केप मोड में होनी चाहिए <br />
-5. आपकी फोटो / तस्वीर का साइज़ 2 एमबी से बड़ा नहीं होना चाहिए, वरना जमा नहीं हो पायेगी <br />
-6. ये तस्वीर / फोटो केवल अल्ट्राटेक प्रतियोगिता के लिए ही दी जानी चाहिए,  इस तस्वीर का उपयोग किसी और जगह नहीं किया जाना चाहिए <br />
-7. इस तस्वीर / फोटो को जमा करके, इस प्रतियोगिता के माध्यम से आप इस फोटो का अपना सम्पूर्ण अधिकार अल्ट्राटेक को दे रहे हैं  <br />
-8. अल्ट्राटेक के पास आपकी पूर्व सूचना के बिना किसी भी उद्देश्य के लिए यह छवि /तस्वीर/ फोटो का उपयोग करने का पूर्ण अधिकार है <br />
-10. यह प्रतियोगिता 30 अप्रैल को शाम के 12.00 बजे समाप्त हो जायेगी <br />
-12. 3 सबसे ज़ियादा क्रिएटिव फोटो / तस्वीरों का प्रदर्शन इवेंट मैं किया जाएगा <br />
+
+नियम और शर्ते लागू <br /> <br />
+
+1)	अपनी नंबर 1 फैमिली  तसवीर को अपनी स्क्रीन के नीचे दिए गए बटन  पर अपलोड करें <br />
+2)	तस्वीर अच्छे उजाले में खिंची होनी चाहिए और चेहरे साफ दिखने चाहिए <br />
+3)	तैय्यार होकर तसवीर खींचें <br />
+4)	तस्वीर केवल जेपीईजी फॉर्मेट में ही होनी चाहिए <br />
+5)	आपकी तस्वीर का साइज़ 2 एमबी से बड़ा नहीं होना चाहिए, वरना जमा नहीं हो पायेगी <br />
+6)	यह प्रतियोगिता केवल  26 अप्रैल 2024 से 30 अप्रैल 2024 रात 12 बजे तक ही जारी रहेगी <br />
+ <br />
 </h1>
 </div>
       </div>

@@ -1,27 +1,46 @@
-import React from 'react'
-import bgImage from "../assets/loginpage.png";
+import React,{useEffect} from 'react'
+import bgImage from "../assets/Websitebg.jpg";
 import { useNavigate } from "react-router-dom";
 
 
 const SnapInstr = () => {
-    const Navigate = useNavigate()
+  const Navigate = useNavigate();
+  
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    const issack = localStorage.getItem('sack');
+    if (!userId) {
+      Navigate("/"); // If userId exists, navigate to home page
+    }
+    if(issack){
+      Navigate('/home')
+    }
+  }, []);
   return (
     <div
       className={`flex flex-col items-center justify-center h-screen bg-cover `}
       style={{ backgroundImage: `url(${bgImage})`}}
     >
-      <h1 className="text-[#fee590] text-[50px]">नियम और शर्तें लागू</h1>
+      <h1 className="text-[#fee590] text-2xl text-center">जकड़ के पकड़</h1><br />
       <div className="md:h-[55%] w-full bg-black opacity-[0.58] flex justify-center items-center">
         <div className="flex justify-center items-center w-[95%] md:w-[80%]">
-        <h1 className="text-[#fee590] my-4 mx-[10px] text-lg">
-1. इस खेल में 30 सेकंड के अंदर आपको अधिकतम बैगज़ मार्कर / फ्रेम में डालने हैं <br />
-2 इस खेल को जीतने के लिए आपको सबसे कम समय में बिना रुके अधिकतम बैगज़ पकड़ने होंगे <br />
-3. अगर आप सबसे अधिक बैगज़ मार्कर / फ्रेम में डाल कर रोक लेते हैं तो आप विजेता पुरस्कार के पात्र हैं <br />
-4. सबसे कम समय सबसे अधिक बैगज़ डालने वाले टॉप 3 विजेताओं को अल्ट्राटेक की तरफ से पुरस्कार दिया जाएगा  <br />
-5. विजेताओं के परिणमन की घोषणा करने का अधिकार व पूर्ण और अंतिम निर्णय केवल अल्ट्राटेक का ही रहेगा <br />
-6. इस प्रतियोगिता की अवधि केवल 30 सेकंड है <br />
-7. यह प्रतियोगिता 24  मई को 12  बजे समाप्त हो जायेगी <br />
-8. 12 बज के तक प्राप्त किये गए उत्तरो और परिणाम को ही को ही अंतिम चयन और अंतिम निर्णय के लिए स्वीकार किया जाएगा <br />
+        <h1 className="text-[#fee590] my-4 mx-[10px] text-sm">
+        15 सेकंड में अधिक से अधिक अल्ट्राटेक सुपर बैगज़ को फ्रेम में डालो और जीतो मज़ेदार इनाम। <br /> <br />
+        नियम और शर्ते लागू <br /> <br />
+
+
+1.	यह खेल आपकी सजगता और रफ़्तार का परीक्षण करने के लिए है <br />
+
+2.	15 सेकंड तक अल्ट्राटेक सुपर बैगज़ निरंतर आपकी स्क्रीन पर चलते रहेंगे <br />
+
+3.	आपको बैगज़ को जल्दी से जल्दी टैप कर के पकड़ना होगा और उन्हें अपनी स्क्रीन पर दिखाए गए फ्रेम में जल्दी से भर के रोकना होगा <br />
+
+4.	सबसे कम समय में जो व्यक्ति अधिकतम बैगज़ फ्रेम में भरेगा वह इस खेल का विजेता होगा वाले टॉप 3 विजेताओं को अल्ट्राटेक की तरफ से पुरस्कार दिया जाएगा  <br />
+
+5.	परिणामों के मूल्यांकन के लिए आपके पहले प्रयास को आपके अंतिम प्रयास के रूप में गिना जाएगा  <br />
+6.	यह प्रतियोगिता 30 अप्रैल 2024 रात 12 बजे तक ही जारी रहेगी <br />
+
+
 </h1>
 </div>
       </div>
