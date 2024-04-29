@@ -1,8 +1,10 @@
+// Import necessary dependencies
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 
+// Define the Leaderboard component
 const Leaderboard = ({ host }) => {
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState([]);
@@ -40,9 +42,9 @@ const Leaderboard = ({ host }) => {
       Quiz_Score: user.quizScore?.score,
       Time_Taken_seconds: user.quizScore?.timeTaken,
       feedback: user.quizScore?.userComment,
-      videoUrl: user.videoUrl,
-      imageUrl: user.imageUrl,
-      imageorvideo: user.imageorvideo,
+      laybhari: user.videoUrl,
+      numer_one: user.imageUrl,
+      banega_toh_badega: user.imageorvideo,
     }));
     const ws = XLSX.utils.json_to_sheet(formattedData);
     const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
@@ -94,6 +96,9 @@ const Leaderboard = ({ host }) => {
                 {leaderboardType === "quiz-score" && (
                   <th className="px-4 py-2">Quiz Score</th>
                 )}
+                <th className="px-4 py-2">Laybhari</th>
+                <th className="px-4 py-2">Numer One</th>
+                <th className="px-4 py-2">Banega Toh Badega</th>
               </tr>
             </thead>
             <tbody>
@@ -111,6 +116,24 @@ const Leaderboard = ({ host }) => {
                       {user.quizScore?.timeTaken} seconds)
                     </td>
                   )}
+                  <td className="border px-4 py-2">
+                    {user.videoUrl && (
+                      <video controls width="200">
+                        <source src={user.videoUrl} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    )}
+                  </td>
+                  <td className="border px-4 py-2">
+                    {user.imageUrl && (
+                      <img src={user.imageUrl} alt="Image" width="100" />
+                    )}
+                  </td>
+                  <td className="border px-4 py-2">
+                    {user.imageorvideo && (
+                      <img src={user.imageorvideo} alt="Image" width="100" />
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>

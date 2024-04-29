@@ -37,7 +37,7 @@ const Home = () => {
             <Link to="/uploadfile">
               <img  className='w-[130px] md:w-[180px] mb-4 md:mb-0 md:mr-8' src={`${imageupload}`} alt="" />
             </Link>
-            <Link to="#">
+            <Link to="/quizinst">
               <img className='w-[130px] md:w-[180px] mb-4 md:mb-0 ' src={`${quizimg}`} alt="" />
             </Link>
             <Link to="#">
