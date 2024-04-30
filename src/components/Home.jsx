@@ -40,7 +40,7 @@ const Home = () => {
             <Link to="/quizinst">
               <img className='w-[130px] md:w-[180px] mb-4 md:mb-0 ' src={`${quizimg}`} alt="" />
             </Link>
-            <Link to="#">
+            <Link to="/snapinst">
               <img className='w-[130px] md:w-[180px] mb-4 md:mb-0 md:mr-8 md:ml-8' src={`${snapthebag}`} alt="" />
             </Link>          
           </div>
